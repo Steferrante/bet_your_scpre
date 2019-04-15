@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+const int num_squadre=4;
+
+int main()
+
+{
+ ifstream fileRisultati;
+ string squadra [num_squadre];
+ int reti [num_squadre];
+ int previsione_reti [num_squadre];
+ int punteggio=0;
+
+
+
+fileRisultati.open("risultati.txt");
+
+for(int i=0, j=0, q=0; i<num_squadre;)
+{
+    if(j!=2)
+    {
+        fileRisultati>>squadra[i];
+        fileRisultati>>squadra[i+1];
+        i=i+2;
+        j=2;
+
+    }
+
+    else
+    {
+        j=0;
+        fileRisultati>>reti [q];
+        fileRisultati>>reti[q+1];
+        q=q+2;
+
+    }
+
+}
+fileRisultati.close(); fileRisultati.clear();
+int r=0;
+
+
+
+ for (int i=0; i<num_squadre; i=i+2) //Calcolo punteggio
+ {
+     cout << "*** " << squadra [i] << " VS " << squadra [i+1] <<" ***\n"
+          << "reti " <<squadra [i] << "\n";
+     cin >> previsione_reti[i];
+     cout  << "reti " <<squadra [i+1] << "\n";
+     cin >> previsione_reti[i+1];
+
+ }
+
+ for (int i=0; i<num_squadre; i=i+2)
+ {
+     if (previsione_reti[i]==reti[i] && previsione_reti[i+1]==reti[i+1])
+     else if (previsione_reti[i] < previsione_reti[i+1] && reti [i] < reti[i+1]
+              || previsione_reti[i] > previsione_reti[i+1] && reti [i] > reti[i+1]
+              || previsione_reti[i] == previsione_reti[i+1] && reti [i] == reti[i+1])
+
+        punteggio=punteggio+1;
+
+
+ }
+
+
+cout << "hai totalizzato " << punteggio <<" punti";
+    return 0;
+}
